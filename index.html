@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soirée Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Three-night summer soirée</p>
+        <h1>Golden Hour at the Garden House</h1>
+        <p class="hero-copy">
+          A warm, lantern-lit weekend of music, citrus cocktails, and late-night laughter.
+        </p>
+        <div class="countdown-card">
+          <p>Opening night begins in</p>
+          <div id="countdown" class="countdown" aria-live="polite"></div>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Guest list</h2>
+            <p>RSVPs are glowing up.</p>
+          </div>
+          <div id="guest-list" class="guest-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Signature drinks</h2>
+            <p>One candlelit sip for each evening.</p>
+          </div>
+          <div id="drink-menu" class="drink-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
