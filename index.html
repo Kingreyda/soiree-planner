@@ -26,6 +26,32 @@
             <h2>Guest list</h2>
             <p>RSVPs are glowing up.</p>
           </div>
+
+          <form id="rsvp-form" class="rsvp-form">
+            <label class="field">
+              <span>Name</span>
+              <input id="guest-name" name="name" type="text" placeholder="Your name" required />
+            </label>
+
+            <div class="radio-group" role="radiogroup" aria-label="RSVP choice">
+              <label>
+                <input type="radio" name="status" value="Attending" checked />
+                Attending
+              </label>
+              <label>
+                <input type="radio" name="status" value="Regrets" />
+                Regrets
+              </label>
+            </div>
+
+            <label class="checkbox-field">
+              <input type="checkbox" name="plusOne" />
+              Add a plus-one
+            </label>
+
+            <button type="submit">Add RSVP</button>
+          </form>
+
           <div id="guest-list" class="guest-list"></div>
         </section>
 
@@ -39,6 +65,6 @@
       </main>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

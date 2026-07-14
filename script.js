@@ -1,8 +1,10 @@
-const guests = [
-  { name: "Mina", status: "Confirmed", plusOne: "Yes" },
-  { name: "Jordan", status: "Pending", plusOne: "No" },
-  { name: "Sage", status: "Confirmed", plusOne: "Yes" },
-  { name: "Rafi", status: "Confirmed", plusOne: "No" },
+import { addGuest, formatGuestStatus, formatPlusOne } from "./planner.mjs";
+
+let guests = [
+  { name: "Mina", status: "Attending", plusOne: "Yes" },
+  { name: "Jordan", status: "Regrets", plusOne: "No" },
+  { name: "Sage", status: "Attending", plusOne: "Yes" },
+  { name: "Rafi", status: "Attending", plusOne: "No" },
 ];
 
 const drinks = [
@@ -15,6 +17,8 @@ const openingNight = new Date("2026-08-14T19:00:00");
 const countdownElement = document.getElementById("countdown");
 const guestListElement = document.getElementById("guest-list");
 const drinkMenuElement = document.getElementById("drink-menu");
+const rsvpForm = document.getElementById("rsvp-form");
+const guestNameInput = document.getElementById("guest-name");
 
 function renderGuests() {
   guestListElement.innerHTML = guests
@@ -25,11 +29,35 @@ function renderGuests() {
             <span class="guest-name">${guest.name}</span>
             <span>Plus-one: ${guest.plusOne}</span>
           </div>
-          <span class="badge ${guest.status === "Pending" ? "pending" : ""}">${guest.status}</span>
+          <span class="badge ${guest.status === "Regrets" ? "pending" : ""}">${guest.status}</span>
         </article>
       `
     )
     .join("");
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const formData = new FormData(rsvpForm);
+  const name = String(formData.get("name") || "").trim();
+
+  if (!name) {
+    return;
+  }
+
+  const status = formatGuestStatus(String(formData.get("status") || "Attending"));
+  const hasPlusOne = formData.get("plusOne") === "on";
+
+  guests = addGuest(guests, {
+    name,
+    status,
+    plusOne: formatPlusOne(hasPlusOne),
+  });
+
+  renderGuests();
+  rsvpForm.reset();
+  guestNameInput.focus();
 }
 
 function renderDrinks() {
@@ -66,6 +94,8 @@ function updateCountdown() {
     <div><strong>${seconds}</strong><span>secs</span></div>
   `;
 }
+
+rsvpForm.addEventListener("submit", handleSubmit);
 
 renderGuests();
 renderDrinks();
